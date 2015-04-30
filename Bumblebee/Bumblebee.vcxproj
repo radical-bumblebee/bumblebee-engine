@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{01B13A83-865A-45D6-A4B4-596B50E80790}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Bumblebee</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Dependencies\include\freetype;$(IncludePath)</IncludePath>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Dependencies\include\freetype;$(ProjectDir)\Dependencies\include\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <DisableSpecificWarnings>%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <EnablePREfast>false</EnablePREfast>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2image.lib;freetype.lib;sqlite3.lib;BulletCollision_debug.lib;BulletDynamics_debug.lib;BulletSoftBody_debug.lib;LinearMath_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <AdditionalOptions>/IGNORE:4099 %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\lib\common;$(ProjectDir)Dependencies\lib\md_debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2_debug.lib;SDL2main_debug.lib;freetype.lib;sqlite3.lib;BulletCollision_debug.lib;BulletDynamics_debug.lib;BulletSoftBody_debug.lib;LinearMath_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>false</LinkTimeCodeGeneration>
+      <AdditionalOptions>/IGNORE:4006 /IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <MinimalRebuild>false</MinimalRebuild>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;SDL2image.lib;freetype.lib;BulletCollision.lib;BulletDynamics.lib;BulletSoftBody.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>msvcrtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;SDL2.lib;SDL2main.lib;freetype.lib;sqlite3.lib;BulletCollision.lib;BulletDynamics.lib;BulletSoftBody.lib;LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\lib\common;$(ProjectDir)Dependencies\lib\md_release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4006 /IGNORE:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="BumblebeeBullet.cpp" />
+    <ClCompile Include="BumblebeeCamera.cpp" />
+    <ClCompile Include="BumblebeeFontAtlas.cpp" />
+    <ClCompile Include="BumblebeeGLSLProgram.cpp" />
+    <ClCompile Include="BumblebeeObject.cpp" />
+    <ClCompile Include="BumblebeeParticleRenderer.cpp" />
+    <ClCompile Include="BumblebeePersist.cpp" />
+    <ClCompile Include="BumblebeeProxy.cpp" />
+    <ClCompile Include="BumblebeeRenderer.cpp" />
+    <ClCompile Include="BumblebeeRoot.cpp" />
+    <ClCompile Include="BumblebeeScene.cpp" />
+    <ClCompile Include="BumblebeeTextRenderer.cpp" />
+    <ClCompile Include="BumblebeeWorld.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AIComponent.h" />
+    <ClInclude Include="BulletComponent.h" />
+    <ClInclude Include="BumblebeeBullet.h" />
+    <ClInclude Include="BumblebeeCamera.h" />
+    <ClInclude Include="BumblebeeContainer.h" />
+    <ClInclude Include="BumblebeeFontAtlas.h" />
+    <ClInclude Include="BumblebeeGLSLProgram.h" />
+    <ClInclude Include="BumblebeeLight.h" />
+    <ClInclude Include="BumblebeeObject.h" />
+    <ClInclude Include="BumblebeeParticleRenderer.h" />
+    <ClInclude Include="BumblebeePersist.h" />
+    <ClInclude Include="BumblebeeProxy.h" />
+    <ClInclude Include="BumblebeeRenderer.h" />
+    <ClInclude Include="BumblebeeScene.h" />
+    <ClInclude Include="BumblebeeTextRenderer.h" />
+    <ClInclude Include="BumblebeeUIElement.h" />
+    <ClInclude Include="BumblebeeWorld.h" />
+    <ClInclude Include="ComponentTypes.h" />
+    <ClInclude Include="BumblebeeRoot.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="IComponent.h" />
+    <ClInclude Include="ISystem.h" />
+    <ClInclude Include="LightTypes.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="ModelComponent.h" />
+    <ClInclude Include="ModelInfo.h" />
+    <ClInclude Include="ModelLoader.h" />
+    <ClInclude Include="ParticleComponent.h" />
+    <ClInclude Include="ParticleInfo.h" />
+    <ClInclude Include="ShaderTypes.h" />
+    <ClInclude Include="SpatialComponent.h" />
+    <ClInclude Include="SystemTypes.h" />
+    <ClInclude Include="WorldConfig.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <Target Name="AfterBuild" Condition="'$(Configuration)'=='Release'">
+    <ItemGroup>
+      <MOVE1 Include="$(ProjectDir)\*.dll" />
+      <MOVE2 Include="$(ProjectDir)\assets\*\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(MOVE1)" DestinationFolder="$(SolutionDir)\Release\%(RecursiveDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(MOVE2)" DestinationFolder="$(SolutionDir)\Release\assets\%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+</Project>

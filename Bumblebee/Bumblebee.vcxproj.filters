@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{9cc9e962-9d6e-4e78-905b-8b3ce478fa8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects">
+      <UniqueIdentifier>{08aef40f-965e-4d0e-be38-029a5514ded6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Utility">
+      <UniqueIdentifier>{ac691ada-2420-4430-907b-63eabd7b2873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Components">
+      <UniqueIdentifier>{9fc67218-cea2-4c67-b02d-99f3ed7985cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Systems">
+      <UniqueIdentifier>{873a5baa-20d7-4156-8756-2be877027199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Systems\Physics">
+      <UniqueIdentifier>{d9e3aa18-6656-4207-b349-721f5f51c4ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Storage">
+      <UniqueIdentifier>{32b8143f-a46a-4e96-9279-cf28c887ac31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Lighting">
+      <UniqueIdentifier>{424d693d-d81e-408c-927a-8bd3e81daaf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\World">
+      <UniqueIdentifier>{d23ed6cf-d688-4fb7-bf56-7275831cb244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Systems\Rendering">
+      <UniqueIdentifier>{df3f5f80-78a6-4f92-b5e8-b8f5ed64d00f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="BumblebeeRoot.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeGLSLProgram.cpp">
+      <Filter>Framework\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Framework\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeePersist.cpp">
+      <Filter>Framework\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeBullet.cpp">
+      <Filter>Framework\Systems\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeProxy.cpp">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeObject.cpp">
+      <Filter>Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeWorld.cpp">
+      <Filter>Framework\Objects\World</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeScene.cpp">
+      <Filter>Framework\Objects\World</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeCamera.cpp">
+      <Filter>Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeRenderer.cpp">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeTextRenderer.cpp">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeFontAtlas.cpp">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="BumblebeeParticleRenderer.cpp">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BumblebeeRoot.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeObject.h">
+      <Filter>Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpatialComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeGLSLProgram.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeePersist.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentTypes.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeBullet.h">
+      <Filter>Framework\Systems\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeProxy.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelInfo.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeContainer.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeLight.h">
+      <Filter>Framework\Objects\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="LightTypes.h">
+      <Filter>Framework\Objects\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="ISystem.h">
+      <Filter>Framework\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeWorld.h">
+      <Filter>Framework\Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WorldConfig.h">
+      <Filter>Framework\Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemTypes.h">
+      <Filter>Framework\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeCamera.h">
+      <Filter>Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeScene.h">
+      <Filter>Framework\Objects\World</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeRenderer.h">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeTextRenderer.h">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeFontAtlas.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeUIElement.h">
+      <Filter>Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BumblebeeParticleRenderer.h">
+      <Filter>Framework\Systems\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderTypes.h">
+      <Filter>Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleInfo.h">
+      <Filter>Framework\Objects\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComponent.h">
+      <Filter>Framework\Objects\Components</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
