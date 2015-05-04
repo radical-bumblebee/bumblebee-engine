@@ -1,6 +1,6 @@
 #include "BumblebeeGLSLProgram.h"
 
-// Compiles a pair of shaders
+// Compiles a pipeline of shaders
 bool BumblebeeGLSLProgram::compile(bool transform) {
 	_program = glCreateProgram();
 
@@ -31,6 +31,7 @@ bool BumblebeeGLSLProgram::compile(bool transform) {
 		Logger::get()->log("Failed to attach fragment shader");
 	}
 
+	// Set up geometry varyings
 	if (transform) {
 		const GLchar* geometry_varyings[4];
 		geometry_varyings[0] = "fs_position";
@@ -127,7 +128,7 @@ bool BumblebeeGLSLProgram::set_int(const char* name, const int value) {
 	return true;
 }
 
-// Reads shader source files
+// Reads a shader source file
 bool BumblebeeGLSLProgram::set_shader_source(ShaderType shader_type, const char* shader_path) {
 	FILE* file = nullptr;
 	if (fopen_s(&file, shader_path, "rb") != 0) {

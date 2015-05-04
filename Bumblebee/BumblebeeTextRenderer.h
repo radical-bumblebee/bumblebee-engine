@@ -13,6 +13,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+// Manages text rendering using modern opengl
 class BumblebeeTextRenderer : public ISystem {
 public:
 	typedef std::shared_ptr<BumblebeeTextRenderer> ptr;

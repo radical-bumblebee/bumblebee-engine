@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <sstream>
 
-// Manages scenes and systems, interfaces with main
+// Entry / exit point for framework, manages all systems
 class BumblebeeRoot {
 public:
 	typedef std::unique_ptr<BumblebeeRoot> uptr;
@@ -36,7 +36,6 @@ public:
 	void register_custom_system(ISystem::ptr system);
 
 	void register_input_callback(input_callback_type callback);
-	void register_ai_callback(ai_callback_type callback);
 	void register_collision_callback(BumblebeeBullet::collision_callback_type callback);
 
 	BumblebeeWorld::ptr world;

@@ -2,8 +2,6 @@
 
 // World tick, updates systems
 void BumblebeeRoot::tick() {
-	int start = 0;
-	int end = 0;
 	if (world->scene()) {
 		for (auto system : _systems) {
 			system->tick();
@@ -23,16 +21,19 @@ void BumblebeeRoot::loop() {
 
 		// Game loop
 		while (!quit) {
+			// Measure delta time
 			now = SDL_GetTicks();
 			world->dt = (float)(now - before) / 1000;
 			before = now;
 
 			while (SDL_PollEvent(&e) != 0) {
 				if (e.type == SDL_QUIT) {
+					// Exit application
 					quit = true;
 					break;
 				}
 				else if (e.type == SDL_KEYDOWN || e.type == SDL_KEYUP || e.type == SDL_MOUSEBUTTONDOWN || e.type == SDL_MOUSEBUTTONUP) {
+					// Pass input event out of framework
 					if (_input_callback) {
 						_input_callback(e);
 					}
@@ -40,6 +41,7 @@ void BumblebeeRoot::loop() {
 				else if (e.type == SDL_WINDOWEVENT) {
 					switch (e.window.event) {
 					case SDL_WINDOWEVENT_RESIZED:
+						// Pass resize event to renderer
 						_renderer->resize(e.window.data1, e.window.data2);
 						break;
 					}
@@ -47,8 +49,9 @@ void BumblebeeRoot::loop() {
 			}
 
 			this->tick();
+
+			// Calculate fps (badly)
 			world->fps = (frames / (float)(SDL_GetTicks() - start_time)) * 1000;
-			//SDL_SetWindowTitle(_renderer->window, (WINDOW_TITLE +  std::to_string((int)std::ceil(world->fps))).c_str());
 			frames++;
 		}
 	}
@@ -106,14 +109,12 @@ void BumblebeeRoot::unregister_system(SystemType type) {
 	}
 }
 
+// Dispatch input events outside framework
 void BumblebeeRoot::register_input_callback(input_callback_type input_callback) {
 	_input_callback = input_callback;
 }
 
-void BumblebeeRoot::register_ai_callback(ai_callback_type ai_callback) {
-	_ai_callback = ai_callback;
-}
-
+// Dispatch collision events outside framework
 void BumblebeeRoot::register_collision_callback(BumblebeeBullet::collision_callback_type collision_callback) {
 	_physics->collision_callback = collision_callback;
 }
@@ -134,7 +135,7 @@ bool BumblebeeRoot::init() {
 
 // Framework cleanup
 void BumblebeeRoot::destroy() {
-	// Remove all systems cleanly
+	// Shutdown all systems
 	for (auto i = _systems.size(); i > 0; i--) {
 		_systems[i-1]->destroy();
 		_systems[i-1].reset();

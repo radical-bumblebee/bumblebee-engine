@@ -10,6 +10,7 @@
 #include <memory>
 #include <map>
 
+// Represents a 3D object
 class BumblebeeObject {
 public:
 	enum State {

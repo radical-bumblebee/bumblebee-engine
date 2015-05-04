@@ -11,6 +11,7 @@
 
 #define DEFAULT_FONT_SIZE 20
 
+// Manages font data
 class BumblebeeFontAtlas {
 public:
 	typedef std::shared_ptr<BumblebeeFontAtlas> ptr;

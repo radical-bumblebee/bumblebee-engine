@@ -9,7 +9,7 @@
 
 #include <memory>
 
-// Camera class, just a basic data container for now
+// Represents a camera object
 class BumblebeeCamera {
 public:
 	typedef std::shared_ptr<BumblebeeCamera> ptr;

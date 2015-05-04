@@ -3,6 +3,7 @@
 
 #include <memory>
 
+// Holds config data about world
 class WorldConfig {
 public:
 	typedef std::shared_ptr<WorldConfig> ptr;

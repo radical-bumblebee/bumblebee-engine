@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <iostream>
 
-// Represents a pair of vertex / fragment shaders
+// Represents a pipeline of glsl shaders
 class BumblebeeGLSLProgram {
 public:
 	typedef std::shared_ptr<BumblebeeGLSLProgram> ptr;

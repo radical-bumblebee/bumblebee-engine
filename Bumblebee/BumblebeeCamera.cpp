@@ -1,5 +1,6 @@
 #include "BumblebeeCamera.h"
 
+// Rotate camera around y axis
 void BumblebeeCamera::rotate_radians(float r) {
 	this->rotation -= r;
 	float radians = r * (static_cast<float>(glm::pi<float>()) / 180.0f);

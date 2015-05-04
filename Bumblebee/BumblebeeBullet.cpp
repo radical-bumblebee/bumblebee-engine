@@ -4,6 +4,7 @@
 #include "ModelComponent.h"
 #include <iostream>
 
+// Dispatches collision events and updates collision info in world
 void BumblebeeBullet::simulation_tick(btDynamicsWorld* bullet_world, btScalar dt) { 
 	auto bee = static_cast<BumblebeeBullet*>(bullet_world->getWorldUserInfo());
 
@@ -34,7 +35,7 @@ void BumblebeeBullet::simulation_tick(btDynamicsWorld* bullet_world, btScalar dt
 	}
 }
 
-// Ticks system
+// Simulates all physics objects, updates object spatial data
 void BumblebeeBullet::tick() {
 	// Updates physics on all active objects
 	_bullet_world->stepSimulation(_world->dt, 7);
@@ -45,6 +46,7 @@ void BumblebeeBullet::tick() {
 				btTransform transform;
 				obj->bullet->body->getMotionState()->getWorldTransform(transform);
 
+				// Cleanup dead objects
 				if (transform.getOrigin().getY() < -50.0f) {
 					if (obj->bullet->expiration_callback) {
 						obj->bullet->expiration_callback();
@@ -70,7 +72,9 @@ void BumblebeeBullet::tick() {
 	}
 }
 
+// Cleanup physics data across scene changes
 void BumblebeeBullet::scene_changed(BumblebeeScene* previous_scene) {
+	// Register new scene callbacks
 	_world->scene()->objects->object_added_callback = std::bind(&BumblebeeBullet::object_added, this, std::placeholders::_1);
 	_world->scene()->objects->object_removed_callback = std::bind(&BumblebeeBullet::object_removed, this, std::placeholders::_1);
 
@@ -112,6 +116,7 @@ void BumblebeeBullet::object_removed(unsigned int id) {
 	}
 }
 
+// Initialize system
 bool BumblebeeBullet::init(BumblebeeWorld::ptr world) {
 	_world = world;
 
@@ -131,6 +136,7 @@ bool BumblebeeBullet::init(BumblebeeWorld::ptr world) {
 	return true;
 }
 
+// Destroy system
 void BumblebeeBullet::destroy() {
 	for (auto i = _bullet_world->getNumCollisionObjects() - 1; i >= 0; i--)	{
 		btCollisionObject* obj = _bullet_world->getCollisionObjectArray()[i];

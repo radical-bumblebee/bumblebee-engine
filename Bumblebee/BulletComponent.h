@@ -6,6 +6,7 @@
 
 #include <functional>
 
+// Contains physics data
 class BulletComponent : public IComponent {
 public:
 	typedef std::shared_ptr<BulletComponent> ptr;

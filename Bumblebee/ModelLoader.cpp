@@ -77,7 +77,6 @@ bool ModelLoader::load_ply(const char* path, ModelInfo::ptr info) {
 	}
 
 	// Parse ply vertices
-	//float temp_prop[PROPERTIES];
 	float* temp_prop = new float[num_properties]();
 	for (int i = 0; i < info->num_vertices; ++i) {
 		_reader->eat_line();
@@ -95,7 +94,7 @@ bool ModelLoader::load_ply(const char* path, ModelInfo::ptr info) {
 	for (int i = 0; i < info->num_faces; ++i) {
 		_reader->eat_line();
 
-		// its 3 because triangles
+		// Always 3, this only supports triangles
 		if (!_reader->read(buf)) {
 			break;
 		}		

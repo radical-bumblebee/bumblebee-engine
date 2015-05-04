@@ -29,6 +29,7 @@
 #define FAR_PLANE 200.0f
 #define FOV 45.0f
 
+// Manages object/scene rendering using modern opengl
 class BumblebeeRenderer : public ISystem {
 public:
 	typedef std::shared_ptr<BumblebeeRenderer> ptr;

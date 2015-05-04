@@ -12,6 +12,7 @@ struct particle {
 	glm::vec3 velocity;
 };
 
+// Manages particle rendering using modern opengl
 class BumblebeeParticleRenderer : public ISystem {
 public:
 	typedef std::shared_ptr<BumblebeeParticleRenderer> ptr;

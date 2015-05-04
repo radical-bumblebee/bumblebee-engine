@@ -54,12 +54,14 @@ void BumblebeeProxy::load_font(std::string font_name) {
 	}
 }
 
+// Loads skybox
 void BumblebeeProxy::load_skybox(std::string directory, std::string file_pos_x, std::string file_neg_x, std::string file_pos_y, std::string file_neg_y, std::string file_pos_z, std::string file_neg_z) {
 	if (skybox_added_callback) {
 		textures["skybox"] = skybox_added_callback((directory + file_pos_x).c_str(), (directory + file_neg_x).c_str(), (directory + file_pos_y).c_str(), (directory + file_neg_y).c_str(), (directory + file_pos_z).c_str(), (directory + file_neg_z).c_str());
 	}
 }
 
+// Loads particle information
 void BumblebeeProxy::load_particle(std::string texture_name, unsigned int max_particles) {
 	if (particle_added_callback) {
 		ParticleInfo::ptr particle = std::make_shared<ParticleInfo>();

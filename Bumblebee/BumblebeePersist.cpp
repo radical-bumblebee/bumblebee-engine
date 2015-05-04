@@ -4,7 +4,6 @@
 
 #pragma comment (lib, "Ws2_32.lib")
 
-// Hello yes I am a DAO pattern
 BumblebeePersist::ptr BumblebeePersist::_instance;
 int recv_msg(int sock, unsigned char** buffer);
 
@@ -114,6 +113,8 @@ void BumblebeePersist::set_high_score(int player_id, int score) {
 	}
 
 	sqlite3_close_v2(db);
+	
+	// Keeping it local at this point
 
 	/*std::string string_id = std::to_string(player_id);
 	std::string string_score = std::to_string(score);

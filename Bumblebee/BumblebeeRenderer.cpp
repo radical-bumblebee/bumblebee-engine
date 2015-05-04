@@ -2,13 +2,14 @@
 
 void APIENTRY gl_debug(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
-// Ticks system
+// Renders all visible objects
 void BumblebeeRenderer::tick() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
 	glDisable(GL_BLEND);
 	glEnable(GL_CULL_FACE);
 	_program->enable();
 
+	// Update view matrix from camera
 	if (_world->scene()->camera()) {
 		_world->scene()->camera()->view_matrix = glm::lookAt(_world->scene()->camera()->eye,
 			_world->scene()->camera()->target,
@@ -17,7 +18,7 @@ void BumblebeeRenderer::tick() {
 
 	_program->set_float("game_over", _world->config->game_over);
 
-	// lighting uniforms
+	// Update lighting uniforms
 	if (!_world->scene()->lights->empty()) {
 		_program->set_int("num_lights", static_cast<int>(_world->scene()->lights->size()));
 		std::string light_prefix;
@@ -41,16 +42,17 @@ void BumblebeeRenderer::tick() {
 			world_matrix *= glm::mat4_cast(obj->spatial->orientation);
 			world_matrix = glm::scale(world_matrix, obj->spatial->scale);
 
-			// transform uniforms
+			// Update transformation uniforms
 			_program->set_matrix("view_matrix", glm::value_ptr(_world->scene()->camera()->view_matrix), false);
 			_program->set_matrix("world_matrix", glm::value_ptr(world_matrix), false);
 
-			// object uniforms
+			// Update object uniforms
 			_program->set_vec4("camera_position", glm::value_ptr(_world->scene()->camera()->eye));
 			_program->set_vec4("object_color", glm::value_ptr(obj->model->info->color));
 			_program->set_float("object_shininess", obj->model->info->shininess);
 			_program->set_float("object_transparency", obj->model->info->transparency);
 			
+			// Set rendering mode if object is a skybox
 			if (obj->model->texture == _world->proxy->textures["skybox"]) {
 				_program->set_int("render_mode", 2);
 				glCullFace(GL_FRONT);
@@ -67,6 +69,7 @@ void BumblebeeRenderer::tick() {
 			glBindVertexArray(obj->model->info->vbo_id);
 			glBindBuffer(GL_ARRAY_BUFFER, obj->model->info->vao_id);			
 			
+			// Updates vertices if object is a dynamic body
 			if (obj->model->info->update_mesh) {
 				float* mesh = (float*)glMapBufferRange(GL_ARRAY_BUFFER, 0, obj->model->info->num_vertices, GL_MAP_WRITE_BIT | GL_MAP_UNSYNCHRONIZED_BIT);
 				for (int i = 0; i < obj->model->info->num_vertices; ++i) {
@@ -75,19 +78,20 @@ void BumblebeeRenderer::tick() {
 					mesh[(i * 4) + 2] = obj->model->info->vertices.at(i).z;
 				}
 				glUnmapBuffer(GL_ARRAY_BUFFER);
-				//obj->model->info->update_mesh = false;
 			}
 
 			glEnableVertexAttribArray(0);
 			glEnableVertexAttribArray(1);
 			glEnableVertexAttribArray(2);
 
+			// Draw object
 			if (obj->model->info->num_faces > 0) {
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, obj->model->info->ib_id);
 				glDrawElements(GL_TRIANGLES, obj->model->info->num_faces * 3, GL_UNSIGNED_INT, (GLvoid*)0);
 				glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 			}
 			else {
+				// No index buffer
 				glDrawArrays(GL_POINTS, 0, obj->model->info->num_vertices);
 			}
 
@@ -103,12 +107,15 @@ void BumblebeeRenderer::tick() {
 		}
 	}	
 
+	// Tick subsystems
 	_particle_renderer->tick();
 	_text_renderer->tick();
 
+	// Present
 	SDL_GL_SwapWindow(window);
 }
 
+// Set application icon
 void BumblebeeRenderer::set_app_icon() {
 	SDL_Surface* surface = SDL_LoadBMP("assets/icons/radbee.bmp");
 	SDL_SetSurfaceAlphaMod(surface, 24);
@@ -120,7 +127,7 @@ void BumblebeeRenderer::set_app_icon() {
 	}
 }
 
-// Initializes and sets the vertex and fragment shaders
+// Initializes renderer pipeline
 bool BumblebeeRenderer::init_shaders() {
 	_program = std::make_shared<BumblebeeGLSLProgram>();
 
@@ -143,6 +150,7 @@ bool BumblebeeRenderer::init_shaders() {
 	return true;
 }
 
+// Load a texture image with gli
 unsigned int BumblebeeRenderer::load_texture(GLenum texture_target, const char* src) {
 	gli::texture2D texture(gli::load_dds(src));
 	if (texture_target == GL_TEXTURE_CUBE_MAP_POSITIVE_X) {
@@ -190,6 +198,7 @@ unsigned int BumblebeeRenderer::skybox_added(const char* pos_x, const char* neg_
 	glGenTextures(1, &texture_name);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture_name);
 
+	// Load all sides
 	load_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_X, pos_x);
 	load_texture(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, neg_x);
 	load_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, pos_y);
@@ -197,6 +206,7 @@ unsigned int BumblebeeRenderer::skybox_added(const char* pos_x, const char* neg_
 	load_texture(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, pos_z);
 	load_texture(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, neg_z);
 
+	// Filtering options
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -232,6 +242,7 @@ void BumblebeeRenderer::model_added(ModelInfo::ptr model) {
 		Logger::get()->log("Model not found");
 	}
 
+	// Copy data in gl friendly format
 	float* array_positions = new float[model->num_vertices * 4]();
 	float* array_normals = new float[model->num_vertices * 4]();
 	float* array_uv = new float[model->num_vertices * 4]();
@@ -261,6 +272,7 @@ void BumblebeeRenderer::model_added(ModelInfo::ptr model) {
 		++i;
 	}
 
+	// Generate buffers
 	glGenVertexArrays(1, &model->vbo_id);
 	glBindVertexArray(model->vbo_id);
 
@@ -270,6 +282,7 @@ void BumblebeeRenderer::model_added(ModelInfo::ptr model) {
 	int type_size = (sizeof(float) * 4) * model->num_vertices;
 	int buffer_size = 3 * type_size;
 
+	// Copy data into buffers
 	glBufferData(GL_ARRAY_BUFFER, buffer_size, NULL, GL_STREAM_DRAW);
 
 	unsigned int offset_position = 0;
@@ -288,6 +301,7 @@ void BumblebeeRenderer::model_added(ModelInfo::ptr model) {
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset_normal);
 	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid*)offset_uv);
 
+	// Copy in index data if applicable
 	if (model->num_faces > 0) {
 		auto range = model->faces.size() * 3;
 		unsigned int* array_indices = new unsigned int[range];
@@ -312,6 +326,7 @@ void BumblebeeRenderer::model_added(ModelInfo::ptr model) {
 		delete[] array_indices;
 	}
 
+	// Cleanup
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
@@ -366,7 +381,7 @@ bool BumblebeeRenderer::init(BumblebeeWorld::ptr world) {
 	}
 
 	//SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-	SDL_ShowCursor(0);
+	SDL_ShowCursor(0); // Disables cursor
 	//set_app_icon();
 
 	_context = SDL_GL_CreateContext(window);

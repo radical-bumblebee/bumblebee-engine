@@ -6,6 +6,7 @@
 
 #include <memory>
 
+// Interface for a system
 class ISystem {
 public:
 	typedef std::shared_ptr<ISystem> ptr;

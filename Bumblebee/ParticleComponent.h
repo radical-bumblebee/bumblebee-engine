@@ -4,6 +4,7 @@
 #include "IComponent.h"
 #include "ParticleInfo.h"
 
+// Contains particle data
 class ParticleComponent : public IComponent {
 public:
 	typedef std::shared_ptr<ParticleComponent> ptr;

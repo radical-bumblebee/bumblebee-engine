@@ -8,6 +8,7 @@
 
 #include <memory>
 
+// Represents all common data in simulation
 class BumblebeeWorld {
 public:
 	typedef std::shared_ptr<BumblebeeWorld> ptr;

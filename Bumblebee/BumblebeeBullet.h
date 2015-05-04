@@ -7,10 +7,10 @@
 
 #include <memory>
 
+// Manages and simulates physics data, using bullet
 class BumblebeeBullet : public ISystem {
 public:
 	typedef std::shared_ptr<BumblebeeBullet> ptr;
-
 	typedef std::function<void(unsigned int, unsigned int, glm::vec3)> collision_callback_type;
 
 

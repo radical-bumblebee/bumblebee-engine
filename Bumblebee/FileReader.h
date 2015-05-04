@@ -29,19 +29,17 @@ public:
 
 	// Eats characters to the end of the line
 	void eat_line() {
-		//if (0 == *_src) {
-			if ((isalnum(*_src) || *_src == '.' || *_src == '-')) {
-				return;
-			}
-			// To line ending
-			while (!eof() && !eol(*_src)) {
-				_src++;
-			}
-			// Consume all line ending characters
-			while (!eof() && eol(*_src)) {
-				_src++;
-			}
-		//}
+		if ((isalnum(*_src) || *_src == '.' || *_src == '-')) {
+			return;
+		}
+		// To line ending
+		while (!eof() && !eol(*_src)) {
+			_src++;
+		}
+		// Consume all line ending characters
+		while (!eof() && eol(*_src)) {
+			_src++;
+		}
 	}
 
 	// Reads to next space

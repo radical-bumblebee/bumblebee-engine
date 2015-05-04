@@ -1,6 +1,7 @@
 #include "BumblebeeParticleRenderer.h"
 #include <random>
 
+// Updates a set of particles, renders another, and then swaps them
 void BumblebeeParticleRenderer::tick() {
 	for (auto obj = _world->scene()->objects->begin(); obj != _world->scene()->objects->end(); ++obj) {
 		if (obj->particle) {
@@ -76,6 +77,7 @@ void BumblebeeParticleRenderer::tick() {
 	}
 }
 
+// Add new particle information into gl buffers
 void BumblebeeParticleRenderer::particle_added(ParticleInfo::ptr info) {
 	particle* particles = new particle[info->max_particles];
 	memset(particles, 0, sizeof(particles));
@@ -95,6 +97,7 @@ void BumblebeeParticleRenderer::particle_added(ParticleInfo::ptr info) {
 	delete[] particles;
 }
 
+// Initialize particle pipelines
 bool BumblebeeParticleRenderer::init_shaders() {	
 	// Particle render pass
 	_program[0] = std::make_shared<BumblebeeGLSLProgram>();
@@ -138,6 +141,7 @@ bool BumblebeeParticleRenderer::init_shaders() {
 	return true;
 }
 
+// Cleanup old particles on scene changed, not implemented yet
 void BumblebeeParticleRenderer::scene_changed(BumblebeeScene* previous_scene) {
 	if (previous_scene) {
 		for (auto particle : _world->proxy->particles) {
@@ -148,6 +152,7 @@ void BumblebeeParticleRenderer::scene_changed(BumblebeeScene* previous_scene) {
 	}
 }
 
+// Initialize system
 bool BumblebeeParticleRenderer::init(BumblebeeWorld::ptr world) {
 	_world = world;
 	_elapsed_time = 0.0f;
@@ -158,6 +163,7 @@ bool BumblebeeParticleRenderer::init(BumblebeeWorld::ptr world) {
 	std::mt19937 gen(rd());
 	std::uniform_real_distribution<> dis(-1.0f, 1.0f);
 
+	// Creates a texture full of random numbers, sampled by the particle system for some sort of loose random functionality in the gpu
 	int random_size = 200;
 	float* random_data = new float[random_size*3];
 	auto walk = random_data;
@@ -180,12 +186,14 @@ bool BumblebeeParticleRenderer::init(BumblebeeWorld::ptr world) {
 
 	delete[] random_data;
 
+	// Registers callbacks
 	_world->proxy->particle_added_callback = std::bind(&BumblebeeParticleRenderer::particle_added, this, std::placeholders::_1);
 	_world->register_scene_changed_callback(std::bind(&BumblebeeParticleRenderer::scene_changed, this, std::placeholders::_1));
 
 	return true;
 }
 
+// Destroys system
 void BumblebeeParticleRenderer::destroy() {
 	_program[1].reset();
 	_program[0].reset();

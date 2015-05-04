@@ -6,6 +6,7 @@
 #include <memory>
 #include <string>
 
+// Represents a 2D text object
 class BumblebeeUIElement {
 public:
 	typedef std::shared_ptr<BumblebeeUIElement> ptr;

@@ -1,5 +1,6 @@
 #include "BumblebeeTextRenderer.h"
 
+// Renders all visible text elements
 void BumblebeeTextRenderer::tick() {
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	_program->enable();
@@ -11,6 +12,7 @@ void BumblebeeTextRenderer::tick() {
 
 			BumblebeeFontAtlas::ptr atlas = _world->proxy->fonts[element->font];
 						
+			// Bind font texture
 			glBindTexture(GL_TEXTURE_2D, atlas->texture_id());
 			_program->set_int("render_mode", 1);
 			_program->set_vec4("object_color",	glm::value_ptr(element->color));
@@ -23,18 +25,15 @@ void BumblebeeTextRenderer::tick() {
 
 			const char* p;
 
+			// Initialize glyph rendering data
 			int window_w; int window_h;
 			SDL_GetWindowSize(window, &window_w, &window_h);
 			float sx = 2.0f / (float)window_w;
 			float sy = 2.0f / (float)window_h;
 			float width_percentage = element->x * window_w;
 			float height_percentage = element->y * window_h;
-			//float x = -1 + (element->x * window_w) * sx;
-			//float y = 1 - (element->y * window_h) * sy;
 			float x = -1 + element->x * sx;
 			float y = 1 - (element->y + 20.0f) * sy;
-			//float x = (element->x - 0.5f) * 2.0f;
-			//float y = -(element->y - 0.5f) * 2.0f;
 
 			float* string_data = new float[4 * (6 * strlen(element->text.c_str()))]();
 			int c = 0;
@@ -96,10 +95,12 @@ void BumblebeeTextRenderer::tick() {
 	}
 }
 
+// Attach a pipeline
 void BumblebeeTextRenderer::set_program(BumblebeeGLSLProgram::ptr program) {
 	_program = program;
 }
 
+// Callback to add new fonts to the system
 FT_Face BumblebeeTextRenderer::font_added(const char* font_name) {
 	FT_Face face;
 	if (FT_New_Face(_freetype, font_name, 0, &face)) {
@@ -108,7 +109,7 @@ FT_Face BumblebeeTextRenderer::font_added(const char* font_name) {
 	return face;
 }
 
-
+// Initialize system
 bool BumblebeeTextRenderer::init(BumblebeeWorld::ptr world) {
 	_world = world;
 
@@ -126,6 +127,7 @@ bool BumblebeeTextRenderer::init(BumblebeeWorld::ptr world) {
 	return true;
 }
 
+// Destroys system
 void BumblebeeTextRenderer::destroy() {
 	FT_Done_FreeType(_freetype);
 

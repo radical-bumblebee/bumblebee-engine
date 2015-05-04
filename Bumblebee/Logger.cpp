@@ -10,7 +10,7 @@ Logger::ptr Logger::get() {
 	return _instance;
 }
 
-// Logs something, probably change this to render text later
+// Logs something, could change this to render text or make a log file at some point
 void Logger::log(std::string text) {
 	std::cout << text << std::endl;
 }

@@ -10,6 +10,7 @@
 #include <unordered_map>
 #include <functional>
 
+// Application data store
 class BumblebeeProxy {
 public:
 	typedef std::shared_ptr<BumblebeeProxy> ptr;

@@ -3,6 +3,7 @@
 
 #include <memory>
 
+// Represents a renderable grouping of particles
 class ParticleInfo {
 public:
 	typedef std::shared_ptr<ParticleInfo> ptr;
