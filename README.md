@@ -3,7 +3,7 @@
 The Bumblebee Engine is a 3D game engine built from the ground up using modern technologies and software architecture.
 
 ### Requirements
- - Visual Studio 2015 or 2013
+ - Visual Studio 2017
 
 ### Technology
  - [SDL] - Cross-platform Development Library
